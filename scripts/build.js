@@ -3,8 +3,8 @@ const fs = require('fs');
 
 require('esbuild').build({
 	entryPoints: {
-		client: './out/client.js',
-		server: './out/server.js',
+		client: './src/client.js',
+		server: './src/server.js',
 	},
 	bundle: true,
 	metafile: process.argv.includes('--metafile'),

@@ -4,11 +4,11 @@ import { CancellationToken, CompletionContext, CompletionItem, CompletionItemPro
 import ExplorerProvider from './explorer'
 import * as fs from 'fs'
 import * as path from 'path'
+import * as changeCase from "change-case";
 import { winRootPathHandle, getRelativePath, getCurrentWord, getWord } from './util/util'
 import { getJsTag, getTag, getAttribute, getGlobalAttribute, getDocument } from "./frameworks";
 import vueSnippetsHtml from './vue/snippets-html'
 import vueSnippetsJs from './vue/snippets-js'
-const paramCamse = require('param-case')
 const glob = require('glob')
 
 export interface TagObject {
@@ -757,9 +757,9 @@ export class vueHelperDefinitionProvider implements DefinitionProvider {
     // 获取框架
     let frame: any = await this.getPlugin(['iview', 'element-ui'])
     if (frame === 'iview') {
-      return await this.readDir(workspace.rootPath + path.sep + 'node_modules' + path.sep + 'iview' + path.sep + 'src' + path.sep + 'components', paramCamse(selectText), frame)
+      return await this.readDir(workspace.rootPath + path.sep + 'node_modules' + path.sep + 'iview' + path.sep + 'src' + path.sep + 'components', changeCase.kebabCase(selectText), frame)
     } else if (frame === 'element-ui') {
-      return await this.readDir(workspace.rootPath + path.sep + 'node_modules' + path.sep + 'element-ui' + path.sep + 'packages', paramCamse(selectText).replace(/^el-/gi, ''), frame)
+      return await this.readDir(workspace.rootPath + path.sep + 'node_modules' + path.sep + 'element-ui' + path.sep + 'packages', changeCase.kebabCase(selectText).replace(/^el-/gi, ''), frame)
     } else {
       return ''
     }
